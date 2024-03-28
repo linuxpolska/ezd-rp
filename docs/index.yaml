@@ -2,12 +2,62 @@ apiVersion: v1
 entries:
   ezd-backend:
   - annotations:
+      catalog.cattle.io/auto-install: ezd-crd=match
+      catalog.cattle.io/display-name: LP Backend for EZD RP
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/release-name: ezd-backend
+    apiVersion: v2
+    appVersion: 1.2024-19.7
+    created: "2024-03-27T15:47:07.560083893+01:00"
+    description: Services necessary to run EZD RP app
+    digest: e0dd6d4f61862d096ae34f26ca8d0873a15dd83263a751c59ed45563fd1d1c73
+    home: https://linuxpolska.com
+    icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
+    keywords:
+    - config
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: biuro@linuxpolska.com
+      name: Linux Polska
+    name: ezd-backend
+    sources:
+    - https://github.com/linuxpolska/ezd-rp.git
+    type: application
+    urls:
+    - ezd-backend/ezd-backend-1.4.1.tgz
+    version: 1.4.1
+  - annotations:
+      catalog.cattle.io/auto-install: ezd-crd=match
+      catalog.cattle.io/display-name: LP Backend for EZD RP
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/release-name: ezd-backend
+    apiVersion: v2
+    appVersion: 1.2024-19.7
+    created: "2024-03-27T15:47:07.561904671+01:00"
+    description: Services necessary to run EZD RP app
+    digest: 15cb08e55ca812cedfda54d8e661cb9352f394788f0af24ef39090541255c8e0
+    home: https://linuxpolska.com
+    icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
+    keywords:
+    - config
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: biuro@linuxpolska.com
+      name: Linux Polska
+    name: ezd-backend
+    sources:
+    - https://github.com/linuxpolska/ezd-rp.git
+    type: application
+    urls:
+    - ezd-crd/ezd-backend-1.4.1.tgz
+    version: 1.4.1
+  - annotations:
       catalog.cattle.io/display-name: LP Backend for EZD RP
       catalog.cattle.io/os: linux
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2024-19.4
-    created: "2024-01-31T11:27:57.478255304+01:00"
+    created: "2024-03-27T15:47:07.555947994+01:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -36,7 +86,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2023-17
-    created: "2024-01-31T11:27:57.447204826+01:00"
+    created: "2024-03-27T15:47:07.537449256+01:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -65,7 +115,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2024-01-31T11:27:57.420952753+01:00"
+    created: "2024-03-27T15:47:07.527181621+01:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -94,7 +144,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2024-01-31T11:27:57.396535341+01:00"
+    created: "2024-03-27T15:47:07.517882369+01:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -120,12 +170,55 @@ entries:
   ezd-crd:
   - annotations:
       catalog.cattle.io/display-name: CRDs for LP Backend
+      catalog.cattle.io/hidden: "true"
+      catalog.cattle.io/namespace: default
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/release-name: ezd-crd
+    apiVersion: v2
+    appVersion: 1.2024-19.7
+    created: "2024-03-27T15:47:07.684021773+01:00"
+    dependencies:
+    - condition: global.rabbitmq.deploy
+      name: rabbitmq-operator
+      repository: file://./charts/rabbitmq-operator
+      version: 4.0.0
+    - condition: global.postgresql.deploy
+      name: cloudnative-pg
+      repository: file://./charts/cloudnative-pg
+      version: 0.20.2
+    - condition: global.redis.deploy
+      name: redis-operator
+      repository: file://./charts/redis-operator
+      version: 0.15.9
+    description: Set of operators and CRDs for LP Backend
+    digest: 2f7ea59ac212ac875e26c7d32a1743ec768d2921d32c353a6a2d933ad768a443
+    home: https://linuxpolska.com
+    icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
+    keywords:
+    - ezd
+    - ezdrp
+    - ezd-rp
+    - backend
+    - databases
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: biuro@linuxpolska.com
+      name: Linux Polska
+    name: ezd-crd
+    sources:
+    - https://github.com/linuxpolska/ezd-rp.git
+    type: application
+    urls:
+    - ezd-crd/ezd-crd-1.4.1.tgz
+    version: 1.4.1
+  - annotations:
+      catalog.cattle.io/display-name: CRDs for LP Backend
       catalog.cattle.io/namespace: default
       catalog.cattle.io/os: linux
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2024-19.4
-    created: "2024-01-31T11:27:57.642769114+01:00"
+    created: "2024-03-27T15:47:07.646106513+01:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -167,7 +260,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2023-17
-    created: "2024-01-31T11:27:57.611623107+01:00"
+    created: "2024-03-27T15:47:07.623970242+01:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -209,7 +302,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2024-01-31T11:27:57.572923937+01:00"
+    created: "2024-03-27T15:47:07.603956929+01:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -251,7 +344,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2024-01-31T11:27:57.528854818+01:00"
+    created: "2024-03-27T15:47:07.583187346+01:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -286,4 +379,4 @@ entries:
     urls:
     - ezd-crd/ezd-crd-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-31T11:27:57.378650034+01:00"
+generated: "2024-03-27T15:47:07.504654837+01:00"

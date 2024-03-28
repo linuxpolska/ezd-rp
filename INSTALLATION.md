@@ -12,10 +12,8 @@ export K8S_SC=   #set environmental variable for storage class - to get availabl
 
 export POSTGRES_HOST=lp-backend-postgresql-rw
 export RABBITMQ_HOST=lp-backend-rabbitmq
-export MONGO_HOST=lp-backend-mongodb
 export REDIS_HOST=lp-backend-redis
 export REDIS_APPEND_HOST=lp-backend-redis-append
-export MONGO_PORT=27017
 export RABBITMQ_PORT=5672
 export REDIS_PORT=6379
 export REDIS_APPEND_PORT=6379
@@ -26,8 +24,6 @@ export PSQL_APP_PASSWD=$(openssl rand -hex 10)  # random it by default or set ow
 export PSQL_USER=postgres 
 export RABBITMQ_PASSWD=$(openssl rand -hex 10)  # random it by default or set own password
 export RABBITMQ_USER=ezdrpadmin
-export MONGO_USER=root
-export MONGO_PASSWD=$(openssl rand -hex 10)  # random it by default or set own password
 export REDIS_PASSWD=$(openssl rand -hex 10)  # random it by default or set own password
 ```
 
@@ -47,6 +43,7 @@ kubectl config set-context --current --namespace ${K8S_NAMESPACE}
 helm repo add lp-ezd https://linuxpolska.github.io/ezd-rp
 
 helm repo add nask-ezd https://hub.eadministracja.nask.pl/chartrepo/ezdrp 
+# To obtain access to NASK repository please send email request to ezdrp@nask.pl.
 
 helm repo update
 ```
@@ -66,16 +63,13 @@ helm upgrade --install -n default ezd-crd  lp-ezd/ezd-crd --wait=true
 
 ## ezd-backend installation
 
-This chart should be installed in the same namespace as ezd-fronted. It deploy mongodb, postgresql, rabbitmq, redis and prepare necessary secrets
+This chart should be installed in the same namespace as ezd-fronted. It deploy  postgresql, rabbitmq, redis and prepare necessary secrets
 
 1. Preapre file used in installation
 
 ```bash
 
 cat <<EOF > /tmp/ezd-backend-db.values
-mongodb:
-  auth:
-    rootPassword: ${MONGO_PASSWD} 
 postgresqlConfig:
   auth:
     admPassword:  ${PSQL_PASSWD}
@@ -135,11 +129,6 @@ rabbitExt:
   password: ${RABBITMQ_PASSWD}
   host: ${RABBITMQ_HOST}
   port: ${RABBITMQ_PORT}
-mongoExt:
-  user: ${MONGO_USER}
-  password: ${MONGO_PASSWD}
-  host: ${MONGO_HOST}
-  port: ${MONGO_PORT}
 redisAppendExt:
   isCluster: false
   password: ${REDIS_PASSWD}
@@ -148,8 +137,8 @@ redisAppendExt:
 redisExt:
   isCluster: false
   password: ${REDIS_PASSWD}
-  host: ${REDIS_APPEND_HOST}
-  port: ${REDIS_APPEND_PORT}
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}
 ssoIdentityServer:
   persistence:
     storageClass: ${K8S_SC}
@@ -168,48 +157,6 @@ kubectl -n ${K8S_NAMESPACE} create secret tls ezdrp-cert --cert=certs/domain.cer
 3. Install frontend
 
 ```bash
-#To install newest version of EZDRP download chart and extract it:
-helm pull nask-ezd/nask-ezdrp-ha --version 19.4.15
-tar xf nask-ezdrp-ha-19.4.15.tgz
-#Edit values:
-vim nask-ezdrp-ha/values.yaml
-#Replace values in section:
-#from:
-storage:
-  enabled: true
-  storageClass: &storageclass longhorn
-  force_chown: false
-#to:
-storage:
-  enabled: true
-  storageClass: &storageclass <storageclass which is used>
-  force_chown: true
-#Change settings for cloudadmin:
-#from:
-cloudadmin:
-  active: true
-  centrum_statystyk_reader_url: "https://reader.stats.ezdrp.gov.pl"
-  centrum_statystyk_writer_url: "https://writer.stats.ezdrp.gov.pl"
-  image:
-    name: cloudadmin
-    version: "19.4.15"
-  moduleName: cloudadmin
-  port: &cloudadminport 2000
-  redinessDelay: 20
-  livenessDelay: 180
-#to:
-cloudadmin:
-  active: true
-  centrum_statystyk_reader_url: "https://reader.stats.ezdrp.gov.pl"
-  centrum_statystyk_writer_url: "https://writer.stats.ezdrp.gov.pl"
-  image:
-    name: cloudadmin
-    version: "19.4.15"
-  moduleName: cloudadmin
-  port: &cloudadminport 2000
-  redinessDelay: 120
-  livenessDelay: 280
-#install by:
 helm upgrade --install ezd-frontend -n ${K8S_NAMESPACE} -f /tmp/ezdrp-app.values nask-ezdrp-ha/
 ```
 
