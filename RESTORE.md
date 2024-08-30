@@ -168,9 +168,9 @@ metadata:
   name: ${DB_NAME}
   namespace: ${K8S_NAMESPACE}
 spec:
-  instances: 1
-  minSyncReplicas: 0
-  maxSyncReplicas: 0
+  instances: 3
+  minSyncReplicas: 1
+  maxSyncReplicas: 2
   replicationSlots:
     highAvailability:
       enabled: true
@@ -207,7 +207,7 @@ spec:
       source: ${DB_NAME}
 
   replica:
-    enabled: true
+    enabled: false
     source: ${DB_NAME}
 
   externalClusters:
@@ -232,6 +232,31 @@ EOF
 
 ```bash 
 kubectl apply -f /tmp/cluster-restore.yaml
+
+#or put this block in values.yaml for ezd-backend and comment backup part:
+ bootstrap:
+    recovery:
+      source: ${DB_NAME}
+
+  replica:
+    enabled: false
+    source: ${DB_NAME}
+
+  externalClusters:
+  - name: ${CLUSTER_NAME}
+    barmanObjectStore:
+      destinationPath: "s3://${S3_BUCKET}/"
+      endpointCA:
+        name: "${S3_CACERT}"
+        key: "cacerts.pem"
+      endpointURL: "${S3_URL}"
+      s3Credentials:
+        accessKeyId:
+          name: ${MINIO_CREDENTIALS}
+          key: ACCESS_SECRET_KEY
+        secretAccessKey:
+          name: ${MINIO_CREDENTIALS}
+          key: ACCESS_SECRET_ID
 ```
 
 

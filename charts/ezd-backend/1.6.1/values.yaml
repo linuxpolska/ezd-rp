@@ -102,12 +102,9 @@ postgresqlConfig:
       resizeInUseVolumes: True
     imageName: quay.io/linuxpolska/ezd-backend_postgresql:16.3-postgres-16.3-bullseye-r1
 
-    bootstrap:
-      initdb:
-        database: ""
-        owner: ""
-        secret:
-          name: ""
+    superuserSecret:
+      name: adm-secret
+
 
     backup:
       enabled: false
@@ -132,6 +129,31 @@ postgresqlConfig:
           immediateCheckpoint: true
           jobs: 2
       retentionPolicy: "30d"
+
+#    bootstrap:
+#      recovery:
+#        source: ""
+#
+#    replica:
+#      enabled: false
+#      source: ""
+#
+#
+#    externalClusters:
+#    - name: ""
+#      barmanObjectStore:
+#        destinationPath: ""
+#        endpointCA:
+#          name: "s3cacert"
+#          key: "cacerts.pem"
+#        endpointURL: ""
+#        s3Credentials:
+#          accessKeyId:
+#            name: minio-creds
+#            key: ACCESS_SECRET_KEY
+#          secretAccessKey:
+#            name: minio-creds
+#            key: ACCESS_SECRET_ID
 
     postgresql:
       parameters:
