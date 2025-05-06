@@ -14,9 +14,9 @@ Database configuration:
                    External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
               Select EZDRP_ODCZYT database type: POSTGRESQL
                    External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp_odczyt;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
-                           Select WPEREST database type: POSTGRESQL
+                   Select WPEREST database type: POSTGRESQL
                    External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
-                           Select TERYT database type: POSTGRESQL
+                     Select TERYT database type: POSTGRESQL
                    External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
 
 
@@ -24,12 +24,12 @@ Database configuration:
 {{- if ( .Values.global.redis.deploy ) }}
 
 Redis Database Configuration:
-                      External RedisDB hostname: {{ include "ezd-backend.redisConfig.fullname" . }}
+                      External RedisDB hostname: {{ include "ezd-backend.redisConfig.fullname" . }}.{{ .Release.Namespace }}.svc
                           External RedisDB port: {{ "6379" }}
                       External RedisDB password: {{ include "ezd-backend.password" .Values.redisConfig.auth.password }}
 
 Redis-append Database Configuration:
-    External hostname for RedisDB - append mode: {{ list (include "ezd-backend.redisConfig.fullname" .) "append" | join "-" }}
+    External hostname for RedisDB - append mode: {{ list (include "ezd-backend.redisConfig.fullname" .) "append" | join "-" }}.{{ .Release.Namespace }}.svc
         External port for RedisDB - append mode: {{ "6379" }}
         External RedisDB - append mode password: {{ include "ezd-backend.password" .Values.redisConfig.auth.password }}
 
@@ -37,7 +37,7 @@ Redis-append Database Configuration:
 {{- if ( .Values.global.rabbitmq.deploy ) }}
 
 Rabbit Database Configuration:
-                 Hostname for external RabbitMQ: {{ include "ezd-backend.rabbitmqConfig.fullname" . }}
+                 Hostname for external RabbitMQ: {{ include "ezd-backend.rabbitmqConfig.fullname" . }}.{{ .Release.Namespace }}.svc
                      Port for external RabbitMQ: {{ "5672" }}
                  Username for external RabbitMQ: {{ include "ezd-backend.username" .Values.rabbitmqConfig.auth.username }}
                  Password for external RabbitMQ: {{ include "ezd-backend.password" .Values.rabbitmqConfig.auth.password }}
