@@ -9,15 +9,15 @@ Database configuration:
                            Select database type: POSTGRESQL
                    External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
               Select ARCHIWUM database type: POSTGRESQL
-                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=archiwum;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
+                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw.{{ .Release.Namespace }}.svc;Port=5432;Database=archiwum;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
                       Select KUIP database type: POSTGRESQL
-                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
+                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw.{{ .Release.Namespace }}.svc;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
               Select EZDRP_ODCZYT database type: POSTGRESQL
-                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp_odczyt;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
+                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw.{{ .Release.Namespace }}.svc;Port=5432;Database=ezdrp_odczyt;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
                    Select WPEREST database type: POSTGRESQL
-                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
+                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw.{{ .Release.Namespace }}.svc;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
                      Select TERYT database type: POSTGRESQL
-                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
+                   External DB connectionstring: Host={{ include "ezd-backend.postgresqlConfig.fullname" . }}-rw.{{ .Release.Namespace }}.svc;Port=5432;Database=ezdrp;Username={{ default ( "postgres" ) }};Password='{{ include "ezd-backend.password" .Values.postgresqlConfig.auth.admPassword }}'
 
 
 {{- end }}
