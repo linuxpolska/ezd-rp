@@ -16,7 +16,7 @@ questions:
     required: true
   - variable: rabbitmqConfig.auth.password
     label: Password
-    description: "RabbitMQ Password"
+    description: "RabbitMQ Password. Must match pattern '^([A-Za-z]|[0-9])+$'"
     group: "RabbitMQ Settings"
     type: password
     min: 8
@@ -77,14 +77,14 @@ questions:
   subquestions:
   - variable: postgresqlConfig.auth.admPassword
     label: SuperUser Password
-    description: "Password for SuperUser role"
+    description: "Password for SuperUser role. Must match pattern '^([A-Za-z]|[0-9])+$'"
     group: "Postgresql Settings"
     type: password
     min: 8
     required: true
   - variable: postgresqlConfig.auth.appPassword
     label: Application Password
-    description: "Password for application role"
+    description: "Password for application role. Must match pattern '^([A-Za-z]|[0-9])+$'"
     group: "Postgresql Settings"
     type: password
     min: 8
@@ -144,7 +144,7 @@ questions:
   subquestions:
   - variable: redisConfig.auth.password
     label: Password
-    description: "Redis Password"
+    description: "Redis Password. Must match pattern '^([A-Za-z]|[0-9])+$'"
     group: "Redis Settings"
     type: password
     min: 8
