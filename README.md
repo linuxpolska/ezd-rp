@@ -8,7 +8,7 @@
 Our package contains set of necessary services which allow  to lunch EZD-RP application developed by NASK on Kubernetes using [Helm](https://github.com/helm/helm).
 
 <h1 align="center" style="border-bottom: none">
-    <a href="https://linuxpolska.com/pl/" target="_blank"><img alt="Longhorn" width="200px" src="https://github.com/linuxpolska/ezd-rp/blob/release/1.0.0/docs/LinuxPolska-icon.png""></a>
+    <a href="https://linuxpolska.com/pl/" target="_blank"><img alt="LinuxPolska" width="200px" src="https://github.com/linuxpolska/ezd-rp/blob/main/docs/LinuxPolska-icon.png"></a>
 </h1>
 
 
