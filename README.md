@@ -47,6 +47,7 @@ Example versioning `1.2.3`:
 | **1.4.1***| 1.4.1           | 1.0.0                | Stable         | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.4.1)| Chart up to 19.7.15 and Application version up to 1.2024-19.7    | ✅                 |
 | **1.5.1***| 1.5.1           | 1.0.0                | Stable         | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.5.1)| Chart up to 19.7.45 and Application version up to 1.2024-19.7.45 | ✅                 |
 | **1.6.0***| 1.6.0           | 1.0.0                | Stable         | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.6.0)| Chart up to 21.7.29 and Application version up to 1.2025.21.7    | ✅                 |
+| **1.7.0***| 1.7.0           | 1.0.0                | Stable         | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.7.0)| Chart up to 21.7.29 and Application version up to 1.2025.21.7    | ✅                 |
 
 ## Contact
 
