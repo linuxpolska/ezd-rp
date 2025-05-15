@@ -31,9 +31,8 @@ rabbitmqConfig:
   fullnameOverride: "lp-backend-rabbitmq" 
   nameOverride: ""
   auth:
-    username: "u"
-    password: "qwerty" ##
-    ##password: ""
+    username: ""
+    password: ""
   ingress:
     enabled: false
     className: ""
@@ -83,10 +82,8 @@ postgresqlConfig:
   fullnameOverride: "lp-backend-postgresql" 
   nameOverride: ""
   auth:
-    admPassword: "qwerty" ##
-    appPassword: "qwerty" ##
-    ##admPassword: ""
-    ##appPassword: ""
+    admPassword: ""
+    appPassword: ""
   customConfig:
     instances: 3
     minSyncReplicas: 1
@@ -177,8 +174,7 @@ redisConfig:
   fullnameOverride: "lp-backend-redis" 
   nameOverride: ""
   auth:
-    password: "qwerty" ##
-    ##password: ""
+    password: ""
   customConfig:
     kubernetesConfig:
       image: docker.io/sourcemation/redis:8.0.0
@@ -207,4 +203,3 @@ redisConfig:
       image: docker.io/sourcemation/redis-exporter:1.71.0
     securityContext:
       runAsUser: 0
-      ##fsGroup: 1001
