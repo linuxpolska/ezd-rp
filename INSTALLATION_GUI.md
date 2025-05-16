@@ -78,9 +78,40 @@ In this case please add following repositories:
 
 # Installation applications
 ----------------------
-## EZDRP BACKEND-DB
 
-Please mind that from version 1.4.1 EZDRP BACKEND-CRD will be installed automatically in the same namespace as EZDRP BACKEND-DB.
+## EZDRP CRDs and operators (install once per cluster)
+
+1. Choose from lef-hand side menu Apps/Charts like on below screen:
+
+![menu_apps](docs/images/menu_apps.png)
+
+You will be provided with Charts(please use filters to pick linuxpolska EZD RP, and EZD to choose NASK application)
+
+2. Choose `CRDs for LP Backend` chart.
+
+![apps_chart](docs/images/chart_backend.png)
+
+3. On next screen you will get instructions regarding requirments and instruction how to manually install and uninstall chart(Chart Info). Components version and requirments:
+
+![lp_crd](docs/images/lp_crd.png)
+
+Press install to proceed.
+
+4. Next screens are giving you option to customize helm options before installation.
+
+![lp_crd_1](docs/images/lp_crd_1.png)
+
+![lp_crd_2](docs/images/lp_crd_2.png)
+
+![lp_crd_3](docs/images/lp_crd_3.png)
+
+Press install when customization is finished.
+
+5. If installation succesed, you should see:
+
+![lp_crd_4](docs/images/lp_crd_4.png)
+
+## EZDRP BACKEND-DB
 
 1. Choose from lef-hand side menu Apps/Charts like on below screen:
 
