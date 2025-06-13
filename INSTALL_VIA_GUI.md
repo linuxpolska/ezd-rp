@@ -1,8 +1,6 @@
 # USER GUIDE FOR EZDRP LINUXPOLSKA
 
 # Table of Contents
-* [USER GUIDE FOR EZDRP LINUXPOLSKA](#user-guide-for-ezdrp-linuxpolska)
-* [Table of Contents](#table-of-contents)
 * [Prerequisites](#prerequisites)
    * [K8S platform -Rancher](#k8s-platform--rancher)
    * [Create project in rancher.](#create-project-in-rancher)
@@ -41,13 +39,13 @@
 
 4. When everything will be ready press create.
 
-## Create work space in rancher.
+## Create namespace space in rancher.
 
 1. This can be done by pressing create:
 
 ![namespace_1](docs/images/namespace_1.png)
 
-2. Please fill in a name field for instance `ezd-rp`all:
+2. Please fill in a name field for instance `ezd-rp`:
 
 ![namespace_2](docs/images/namespace_2.png)
 ![namespace_3](docs/images/namespace_3.png)
@@ -81,21 +79,19 @@ In this case please add following repositories:
 
 ## EZDRP CRDs and operators (install once per cluster)
 
-1. Choose from lef-hand side menu Apps/Charts like on below screen:
-
-![menu_apps](docs/images/menu_apps.png)
+1. Choose from left side menu Apps/Charts like on below screen:
 
 You will be provided with Charts(please use filters to pick linuxpolska EZD RP, and EZD to choose NASK application)
 
-2. Choose `CRDs for LP Backend` chart.
+2. Choose `EZD RP Backend (1/2) - Operators` chart.
 
-![apps_chart](docs/images/chart_backend.png)
+![apps_chart](docs/images/chart_crd.png)
 
 3. On next screen you will get instructions regarding requirments and instruction how to manually install and uninstall chart(Chart Info). Components version and requirments:
 
 ![lp_crd](docs/images/lp_crd.png)
 
-Press install to proceed.
+Press **install** to proceed.
 
 4. Next screens are giving you option to customize helm options before installation.
 
@@ -105,7 +101,7 @@ Press install to proceed.
 
 ![lp_crd_3](docs/images/lp_crd_3.png)
 
-Press install when customization is finished.
+Press **install** when customization is finished.
 
 5. If installation succesed, you should see:
 
@@ -113,9 +109,7 @@ Press install when customization is finished.
 
 ## EZDRP BACKEND-DB
 
-1. Choose from lef-hand side menu Apps/Charts like on below screen:
-
-![menu_apps](docs/images/menu_apps.png)
+1. Choose from left side menu Apps/Charts like on below screen:
 
 You will be provided with Charts(please use filters to pick linuxpolska EZD RP, and EZD to choose NASK application)
 
@@ -127,9 +121,9 @@ You will be provided with Charts(please use filters to pick linuxpolska EZD RP, 
 
 ![lp_backend](docs/images/lp_backend.png)
 
-Press install to proceed.
+Press **install** to proceed.
 
-4. Next screen is allowing you to choose desired namespace and it is giving you option to customize helm options before installation. . Please select `ezd-rp` namespace:
+4. Next screen is allowing you to choose desired namespace and it is giving you option to customize helm options before installation.
 
 ![lp_backend_1](docs/images/lp_backend_1.png)
 
@@ -137,20 +131,14 @@ Press install to proceed.
 
 ![lp_backend_2](docs/images/lp_backend_2.png)
 
-6. Please provode passwords and storage classes:
+6. Please provode passwords and storage classes in each group:
 
 ![lp_backend_3_1](docs/images/lp_backend_3.1.png)
 ![lp_backend_3_2](docs/images/lp_backend_3.2.png)
 ![lp_backend_3_3](docs/images/lp_backend_3.3.png)
 ![lp_backend_3_4](docs/images/lp_backend_3.4.png)
 
-and press next.
-
-7. Last screen before start of installation will contain additional deployment options:
-
-![lp_backend_4](docs/images/lp_backend_4.png)
-
-Press install.
+Press **install**.
 
 8. On the last screen you will see progress in CLi. When installation will be completed you will be provided with all necessary infromations to install NASK frontend application (save it):
 
@@ -159,44 +147,76 @@ Press install.
 
 ## EZD FRONTEND
 
-1. Choose from lef-hand side menu Apps/Charts like on below screen:
+1. Choose from left side menu Apps/Charts like on below screen:
 
-![apps_chart](docs/images/menu_apps.png)
+You will be provided with Charts (please use filters to pick linuxpolska EZD RP, and EZD to choose NASK application)
 
-You will be provided with Charts(please use filters to pick linuxpolska EZD RP, and EZD to choose NASK application)
+2. Choose **nask-ezdrp-ha**.
 
-2. Choose nask-ezdrp-ha.
+![apps_chart](docs/images/chart_frontend.png)
 
-![apps_chart](docs/images/chart_crd.png)
-
-3. On next screen you will get instructions regarding requirments and information regarding chart(Chart Info).
+3. On next screen you will get instructions regarding requirments and information regarding chart (Chart Info).
 
 ![nask_installation](docs/images/nask_installation.png)
 
-Choose desired version on the right side of the page (please mind that version 1.17.11 and above requires ReadWriteMany access which means it not work on vsphere-csi-rwo storageclass) 
-Press install.
+Choose desired version on the right side of the page (please mind that version 1.17.11 and above requires ReadWriteMany access which means it not work on vsphere-csi-rwo storageclass)
 
-4. Next page will allow you to choose namespace and unique name for installation of application. At the left bottom tick box for customization of helm options and press next:
+Press **install**.
+
+4. Next page will allow you to choose namespace and unique name for installation of application.
+
+Press **next**.
 
 ![nask_installation_1](docs/images/nask_installation_1.png)
 
-5. On next screen please provide all neccesary values for installation of the components for NASK application (use values from lp backend installation):
+5. Please provide all neccesary values for installation NASK application (use values from NOTES printed after *EZD RP Backend (2/2) Apps* installation)
+   
+   1. Group: **Domain info**
 
 ![nask_installation_2](docs/images/nask_installation_2.png)
+
+   2. Group: **Persistance Storage**
+
 ![nask_installation_3](docs/images/nask_installation_3.png)
+
+   3. Group: **Database Configuration**
+
 ![nask_installation_4](docs/images/nask_installation_4.png)
+
+   Here is an example:
+
+![nask_installation_4](docs/images/nask_installation_4.1.png)
+
+   4. Group: **Redis Database Configuration**
+
 ![nask_installation_5](docs/images/nask_installation_5.png)
+
+   Here is an example:
+
+![nask_installation_5](docs/images/nask_installation_5.1.png)
+
+   5. Group: **Redis-append Database Configuration**
+
 ![nask_installation_6](docs/images/nask_installation_6.png)
+
+   Here is an example:
+
+![nask_installation_6](docs/images/nask_installation_6.1.png)
+
+   6. Group: **Rabbit Database Configuration**
+
 ![nask_installation_7](docs/images/nask_installation_7.png)
 
-Press next.
+   Here is an example:
 
-6. Last screen before start of installation will contain additional deployment options:
+![nask_installation_7](docs/images/nask_installation_7.1.png)
+
+   7. Group: **Email Configuration**
 
 ![nask_installation_8](docs/images/nask_installation_8.png)
 
-7. Press install at the bottom left side 
-
-![crd_4](docs/images/crd_installation_4.png)
+7. Press **install**.
 
 8. After when deployment will be completed you will be provided with website URL that you can access to start using NASK EZD-RP application.
+
+![nask_installation_9](docs/images/nask_installation_9.png)
