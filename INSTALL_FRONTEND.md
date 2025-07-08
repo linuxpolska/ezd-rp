@@ -3,7 +3,7 @@
 ### Are you looking for more information?
 
 1. Documentation: https://github.com/linuxpolska/ezd-rp/blob/main/README.md
-2. Chart Source: https://hub.eadministracja.nask.pl/chartrepo/ezdrp
+2. Chart Source: https://git.eadministracja.nask.pl/api/packages/ezdrp/helm
 
 
 ## Before Installation
@@ -159,7 +159,7 @@ cat ~/certs/$CERTIFICATE_NAME.crt ~/certs/ca.crt > ~/certs/chain.crt
 kubectl -n ${RELEASE_NAMESPACE} create secret tls ezdrp-cert --cert=$CERTS_PATH/chain.crt --key=$CERTS_PATH/$CERTIFICATE_NAME.key
 
 helm -n ${RELEASE_NAMESPACE} upgrade --install ezd-frontend-release \
---repo https://hub.eadministracja.nask.pl/chartrepo/ezdrp \
+--repo https://git.eadministracja.nask.pl/api/packages/ezdrp/helm \
 nask-ezdrp-ha \
 -f /tmp/values.yaml \
 --version ${CHART_VERSION} \
