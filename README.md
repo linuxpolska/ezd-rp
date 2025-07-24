@@ -34,6 +34,7 @@ After that, choose instalation way from the following: ["GUI Installation"](INST
 | **1.6.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.6.0) | Chart up to 21.7.29 and Application version up to 1.2025.21.7      |
 | **1.7.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.7.0) | Chart up to 21.7.29 and Application version up to 1.2025.21.7      |
 | **1.8.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.8.0) | Chart up to 21.11.11 and Application version up to 1.2025.21.11    |
+| **1.9.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.9.0) | Chart up to 21.15.13 and Application version up to 1.2025.21.15    |
 
 ## Contact
 

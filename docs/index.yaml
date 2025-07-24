@@ -6,8 +6,40 @@ entries:
       catalog.cattle.io/os: linux
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
+    appVersion: 1.2025.21.15
+    created: "2025-07-24T11:52:23.604650951+02:00"
+    description: Services necessary to run EZD RP app. Install many times on kubernetes.
+      EZD RP / LP Backend
+    digest: 67decd1c248a077f26586b594e9b123b1294da5fd07a8bc4c2ab827a4b6c7564
+    home: https://linuxpolska.com
+    icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
+    keywords:
+    - ezd
+    - ezdrp
+    - ezd-rp
+    - backend
+    - databases
+    - redis
+    - postgres
+    - rabbitmq
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: biuro@linuxpolska.com
+      name: Linux Polska
+    name: ezd-backend
+    sources:
+    - https://github.com/linuxpolska/ezd-rp.git
+    type: application
+    urls:
+    - ezd-backend/ezd-backend-1.9.0.tgz
+    version: 1.9.0
+  - annotations:
+      catalog.cattle.io/display-name: EZD RP Backend (2/2) - Apps
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/release-name: ezd-backend
+    apiVersion: v2
     appVersion: 1.2025.21.11
-    created: "2025-06-13T15:15:00.583166458+02:00"
+    created: "2025-07-24T11:52:23.603910078+02:00"
     description: Services necessary to run EZD RP app. Install many times on kubernetes.
       EZD RP / LP Backend
     digest: 7c79312133284a71c4f2d355c13aadc58b806b9865f404465122995b2ba3c6f2
@@ -39,7 +71,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2025.21.7
-    created: "2025-06-13T15:15:00.58232359+02:00"
+    created: "2025-07-24T11:52:23.602929735+02:00"
     description: Services necessary to run EZD RP app. Install many times on kubernetes.
       EZD RP / LP Backend
     digest: 7e53dc4e6d9019e94b26142673d18f24153d13eca3fc7804fd14921e5ea22d07
@@ -65,7 +97,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2025.21.7
-    created: "2025-06-13T15:15:00.581249696+02:00"
+    created: "2025-07-24T11:52:23.601904014+02:00"
     description: Services necessary to run EZD RP app
     digest: 3f1e54578d2647e93d347ec5f68b4e15122e597bbec7d4f437b775d30c4a3e85
     home: https://linuxpolska.com
@@ -90,7 +122,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2024-19.7.46
-    created: "2025-06-13T15:15:00.580122663+02:00"
+    created: "2025-07-24T11:52:23.600844599+02:00"
     description: Services necessary to run EZD RP app
     digest: 4fdc82d036258b045ada0f1911c213da295b0873be29af7812cac6e1e82e25c4
     home: https://linuxpolska.com
@@ -115,7 +147,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2024-19.7.45
-    created: "2025-06-13T15:15:00.579023251+02:00"
+    created: "2025-07-24T11:52:23.599858615+02:00"
     description: Services necessary to run EZD RP app
     digest: 709f9c7defe323237ab07e2542fd7be10b53139114c51d80404a2996d5b41bbf
     home: https://linuxpolska.com
@@ -140,7 +172,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2024-19.7
-    created: "2025-06-13T15:15:00.577973834+02:00"
+    created: "2025-07-24T11:52:23.598421325+02:00"
     description: Services necessary to run EZD RP app
     digest: ea6e792cc86f0b625784bbeb95e5f7b3439416636febee5aadcb078498f6c4eb
     home: https://linuxpolska.com
@@ -164,7 +196,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2024-19.4
-    created: "2025-06-13T15:15:00.57680964+02:00"
+    created: "2025-07-24T11:52:23.595946611+02:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -193,7 +225,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2023-17
-    created: "2025-06-13T15:15:00.569315028+02:00"
+    created: "2025-07-24T11:52:23.590566948+02:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -222,7 +254,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2025-06-13T15:15:00.564774282+02:00"
+    created: "2025-07-24T11:52:23.586061724+02:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -251,7 +283,7 @@ entries:
       catalog.cattle.io/release-name: ezd-backend
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2025-06-13T15:15:00.559489654+02:00"
+    created: "2025-07-24T11:52:23.580491274+02:00"
     dependencies:
     - condition: global.mongodb.deploy
       name: mongodb
@@ -281,8 +313,56 @@ entries:
       catalog.cattle.io/os: linux
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
+    appVersion: 1.2025.21.15
+    created: "2025-07-24T11:52:23.777542743+02:00"
+    dependencies:
+    - condition: global.rabbitmq.deploy
+      name: rabbitmq-operator
+      repository: https://charts.sourcemation.com/
+      version: 0.1.10
+    - condition: global.postgresql.deploy
+      name: cnpg-operator
+      repository: https://charts.sourcemation.com/
+      version: 0.2.3
+    - condition: global.redis.deploy
+      name: redis-operator
+      repository: https://charts.sourcemation.com/
+      version: 0.2.2
+    description: Set of operators and CRDs for LP Backend. Install only once on kubernetes.
+      EZD RP / LP Backend
+    digest: d87aa8a5472b3cb0ebc1815dac3488814473cbce71f3f2d6159ec3fe916936ce
+    home: https://linuxpolska.com
+    icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
+    keywords:
+    - ezd
+    - ezdrp
+    - ezd-rp
+    - backend
+    - databases
+    - redis
+    - postgres
+    - rabbitmq
+    - operators
+    - crd
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: biuro@linuxpolska.com
+      name: Linux Polska
+    name: ezd-crd
+    sources:
+    - https://github.com/linuxpolska/ezd-rp.git
+    type: application
+    urls:
+    - ezd-crd/ezd-crd-1.9.0.tgz
+    version: 1.9.0
+  - annotations:
+      catalog.cattle.io/display-name: EZD RP Backend (1/2) - Operators
+      catalog.cattle.io/namespace: lp-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/release-name: ezd-crd
+    apiVersion: v2
     appVersion: 1.2025.21.11
-    created: "2025-06-13T15:15:00.766792286+02:00"
+    created: "2025-07-24T11:52:23.760886099+02:00"
     dependencies:
     - alias: rabbitmq-operator
       condition: global.rabbitmq.deploy
@@ -331,7 +411,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2025.21.7
-    created: "2025-06-13T15:15:00.745101153+02:00"
+    created: "2025-07-24T11:52:23.743460878+02:00"
     dependencies:
     - alias: rabbitmq-operator
       condition: global.rabbitmq.deploy
@@ -376,7 +456,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2025.21.7
-    created: "2025-06-13T15:15:00.725118239+02:00"
+    created: "2025-07-24T11:52:23.722067957+02:00"
     dependencies:
     - alias: rabbitmq-operator
       condition: global.rabbitmq.deploy
@@ -420,7 +500,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2024-19.7.46
-    created: "2025-06-13T15:15:00.70266516+02:00"
+    created: "2025-07-24T11:52:23.704500603+02:00"
     dependencies:
     - alias: rabbitmq-operator
       condition: global.rabbitmq.deploy
@@ -464,7 +544,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2024-19.7.45
-    created: "2025-06-13T15:15:00.67409758+02:00"
+    created: "2025-07-24T11:52:23.682447363+02:00"
     dependencies:
     - alias: rabbitmq-operator
       condition: global.rabbitmq.deploy
@@ -508,7 +588,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2024-19.7
-    created: "2025-06-13T15:15:00.646908337+02:00"
+    created: "2025-07-24T11:52:23.658210749+02:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -550,7 +630,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2024-19.4
-    created: "2025-06-13T15:15:00.624229463+02:00"
+    created: "2025-07-24T11:52:23.642768467+02:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -592,7 +672,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2023-17
-    created: "2025-06-13T15:15:00.613027395+02:00"
+    created: "2025-07-24T11:52:23.633598022+02:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -634,7 +714,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2025-06-13T15:15:00.60433175+02:00"
+    created: "2025-07-24T11:52:23.622982833+02:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -676,7 +756,7 @@ entries:
       catalog.cattle.io/release-name: ezd-crd
     apiVersion: v2
     appVersion: 1.2023-16
-    created: "2025-06-13T15:15:00.594809757+02:00"
+    created: "2025-07-24T11:52:23.612644294+02:00"
     dependencies:
     - condition: global.rabbitmq.deploy
       name: rabbitmq-operator
@@ -711,4 +791,4 @@ entries:
     urls:
     - ezd-crd/ezd-crd-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-13T15:15:00.546300712+02:00"
+generated: "2025-07-24T11:52:23.566766712+02:00"

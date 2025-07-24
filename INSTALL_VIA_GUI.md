@@ -69,7 +69,7 @@
 In this case please add following repositories:
 
 * ezd-lp: https://linuxpolska.github.io/ezd-rp
-* ezd-nask: https://hub.eadministracja.nask.pl/chartrepo/ezdrp 
+* ezd-nask: https://git.eadministracja.nask.pl/api/packages/ezdrp/helm
 
 4. When finished press create. 
 

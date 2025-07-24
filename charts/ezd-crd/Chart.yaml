@@ -4,21 +4,20 @@ annotations:
   catalog.cattle.io/os: linux
   catalog.cattle.io/release-name: ezd-crd
 apiVersion: v2
-appVersion: 1.2025.21.11
+appVersion: 1.2025.21.15
 dependencies:
 - condition: global.rabbitmq.deploy
-  name: rabbitmq-cluster-operator  
-  alias: rabbitmq-operator
-  repository: https://charts.bitnami.com/bitnami
-  version: 4.4.17
+  name: rabbitmq-operator  
+  repository: https://charts.sourcemation.com/
+  version: 0.1.10
 - condition: global.postgresql.deploy
-  name: cloudnative-pg
-  repository: https://cloudnative-pg.github.io/charts
-  version: 0.24.0
+  name: cnpg-operator
+  repository: https://charts.sourcemation.com/
+  version: 0.2.3
 - condition: global.redis.deploy
   name: redis-operator
-  repository: https://ot-container-kit.github.io/helm-charts 
-  version: 0.20.3
+  repository: https://charts.sourcemation.com/
+  version: 0.2.2
 description: Set of operators and CRDs for LP Backend. Install only once on kubernetes. EZD RP / LP Backend
 home: https://linuxpolska.com
 icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
@@ -41,4 +40,4 @@ name: ezd-crd
 sources:
 - https://github.com/linuxpolska/ezd-rp.git
 type: application
-version: 1.8.0
+version: 1.9.0
