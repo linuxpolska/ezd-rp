@@ -1,7 +1,7 @@
 ## General
 
 > **Note:**
-> Chart ezd-crd was tested with chart version up to 21.11.11 (application version up to 1.2025.21.11).
+> Chart ezd-crd was tested with chart version up to 21.15.13 (application version up to 1.2025.21.15).
 
 ### Are you looking for more information?
 
@@ -58,7 +58,7 @@ Release name and namespace must match for CRD upgrade. To work around the error 
 
 ```bash
 RELEASE_NAMESPACE=lp-system
-CHART_VERSION=1.8.0
+CHART_VERSION=1.9.0
 ```
 
 ### Go go helm

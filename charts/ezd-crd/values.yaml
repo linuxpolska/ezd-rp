@@ -19,49 +19,55 @@ global:
     deploy: true
 
 rabbitmq-operator:
-  clusterOperator:
+  rke2rabbitmqope:
+    clusterOperator:
+      replicaCount: 1
+      image:
+        registry: ""
+        repository: docker.io/sourcemation/rabbitmq-cluster-operator
+        tag: 2.15.0
+        pullPolicy: Always
+      resources:
+        limits:
+          cpu: 200m
+          memory: 500Mi
+        requests:
+          cpu: 200m
+          memory: 500Mi
+      tolerations: []
+      affinity: {}
+
+    msgTopologyOperator:
+      enabled: false
+
+
+cnpg-operator:
+  cloudnative-pg:
     image:
-      registry: ""
-      repository: docker.io/bitnami/rabbitmq-cluster-operator
-      tag: 2.14.0
+      repository: ghcr.io/cloudnative-pg/cloudnative-pg
+      tag: "1.26.0"
       pullPolicy: Always
-    resources:
-      limits:
-        cpu: 200m
-        memory: 500Mi
-      requests:
-        cpu: 200m
-        memory: 500Mi
+    resources: {}
     tolerations: []
     affinity: {}
+    podSecurityContext: {}
+    fullnameOverride: "postgresql"
 
-  msgTopologyOperator:
-    enabled: false
-
-
-cloudnative-pg:
-  image:
-    repository: ghcr.io/cloudnative-pg/cloudnative-pg
-    tag: "1.26.0"
-    pullPolicy: Always
-  resources: {}
-  tolerations: []
-  affinity: {}
-  podSecurityContext: {}
-  fullnameOverride: "postgresql"
 
 redis-operator:
-  redisOperator:
-    imageName: ghcr.io/ot-container-kit/redis-operator/redis-operator
-    imageTag: v0.20.2
-    pullPolicy: Always
-    serviceAccountName: "redis-operator"
-    resources:
-      limits:
-        cpu: 500m
-        memory: 500Mi
-      requests:
-        cpu: 500m
-        memory: 500Mi
-    tolerations: []
-    affinity: {}
+  redis-operator:
+    replicas: 1
+    redisOperator:
+      imageName: docker.io/sourcemation/redis-operator
+      imageTag: 0.21.0
+      pullPolicy: Always
+      serviceAccountName: "redis-operator"
+      resources:
+        limits:
+          cpu: 500m
+          memory: 500Mi
+        requests:
+          cpu: 500m
+          memory: 500Mi
+      tolerations: []
+      affinity: {}

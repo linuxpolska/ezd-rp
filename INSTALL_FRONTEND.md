@@ -57,7 +57,7 @@
 
 ```bash
 RELEASE_NAMESPACE=example
-CHART_VERSION=21.11.11
+CHART_VERSION=21.15.13
 
 # Set the name of the domain where ezdrp will exist
 APP_DOMAIN=example.domain.name

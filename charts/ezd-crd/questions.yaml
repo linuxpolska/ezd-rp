@@ -48,32 +48,32 @@ questions:
   show_subquestion_if: true
   group: "Private Registry Settings"
   subquestions:
-  - variable: cloudnative-pg.image.repository
+  - variable: cnpg-operator.cloudnative-pg.image.repository
     description: "Postgresql image name"
     type: string
     label: Postgresql Image Name
     show_if: "global.postgresql.deploy=true"
-  - variable: cloudnative-pg.image.tag
+  - variable: cnpg-operator.cloudnative-pg.image.tag
     description: "Postgresql image tag"
     type: string
     label: Postgresql Image Tag
     show_if: "global.postgresql.deploy=true"
-  - variable: rabbitmq-operator.clusterOperator.image.repository
+  - variable: rabbitmq-operator.rke2rabbitmqope.clusterOperator.image.repository
     description: "RabbitMQ image name"
     type: string
     label: RabbitMQ Image Name
     show_if: "global.rabbitmq.deploy=true"
-  - variable: rabbitmq-operator.clusterOperator.image.tag
+  - variable: rabbitmq-operator.rke2rabbitmqope.clusterOperator.image.tag
     description: "RabbitMQ image tag"
     type: string
     label: RabbitMQ Image Tag
     show_if: "global.rabbitmq.deploy=true"
-  - variable: redis-operator.redisOperator.imageName
+  - variable: redis-operator.redis-operator.redisOperator.imageName
     description: "Redis image name"
     type: string
     label: Redis Image Name
     show_if: "global.redis.deploy=true"
-  - variable: redis-operator.redisOperator.imageTag
+  - variable: redis-operator.redis-operator.redisOperator.imageTag
     description: "Redis image tag"
     type: string
     label: Redis Image Tag
