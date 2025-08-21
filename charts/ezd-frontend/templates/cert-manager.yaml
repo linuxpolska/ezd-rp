@@ -1,0 +1,73 @@
+{{- if .Values.certManager.enabled -}}
+{{- if .Values.certManager.letsencrypt.enabled -}}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Release.Name }}-issuer
+spec:
+  acme:
+    email: {{ .Values.certManager.letsencrypt.email }}
+    server: {{ .Values.certManager.server }}
+    privateKeySecretRef:
+      name: {{ .Release.Name }}-issuer-account-key
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers: {{ .Values.certManager.letsencrypt.solvers | toYaml | nindent  4 }}
+
+{{- else -}}
+
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Release.Name }}-selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Release.Name }}-selfsigned-ca
+spec:
+  isCA: true
+  commonName: {{ .Release.Name }}-selfsigned-ca
+  secretName: {{ .Release.Name }}-selfsigned-ca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: {{ .Release.Name }}-selfsigned-issuer
+    kind: Issuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Release.Name }}-issuer
+spec:
+  ca:
+    secretName: {{ .Release.Name }}-selfsigned-ca
+{{- end }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate
+spec:
+  secretName: certificate
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  isCA: false
+  subject:
+    organizations: {{ .Values.certManager.organizations }}
+  commonName: "*.{{ .Values.frontend.domainInfo.name }}"
+  dnsNames:
+  - "*.{{ .Values.frontend.domainInfo.name }}"
+
+  issuerRef:
+    name: {{ .Release.Name }}-issuer
+    kind: Issuer
+    group: cert-manager.io
+
+{{- end -}}
