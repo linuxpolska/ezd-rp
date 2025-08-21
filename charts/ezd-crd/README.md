@@ -1,7 +1,7 @@
 ## General
 
 > **Note:**
-> Chart ezd-crd was tested with chart version up to 21.15.13 (application version up to 1.2025.21.15).
+> Chart ezd-crd was tested with chart version up to 21.18.7 (application version up to 1.2025.21.18).
 
 ### Are you looking for more information?
 
@@ -58,14 +58,42 @@ Release name and namespace must match for CRD upgrade. To work around the error 
 
 ```bash
 RELEASE_NAMESPACE=lp-system
-CHART_VERSION=1.9.0
+CHART_VERSION=2.0.0
 ```
 
 ### Go go helm
 
 ```bash
 cat << EOF > /tmp/values.yaml
+global:
+  rabbitmq:
+    deploy: true
+  postgresql:
+    deploy: true
+  redis:
+    deploy: true
+  certManager:
+    deploy: true
 
+cert-manager-operator:
+  cert-manager:
+    replicaCount: 1
+
+cnpg-operator:
+  cloudnative-pg:
+    image:
+      repository: ghcr.io/cloudnative-pg/cloudnative-pg
+      tag: "1.27.0"
+      pullPolicy: Always
+
+rabbitmq-operator:
+  rke2rabbitmqope:
+    clusterOperator:
+      replicaCount: 1
+
+redis-operator:
+  redis-operator:
+    replicas: 1
 EOF
 
 helm -n ${RELEASE_NAMESPACE} upgrade --install ezd-crd \
@@ -87,10 +115,7 @@ helm -n ${RELEASE_NAMESPACE} list
 
 ```bash
 helm -n ${RELEASE_NAMESPACE} uninstall ezd-crd
-kubectl get crd -o name | grep -E "(postgresql.cnpg.io|rabbitmqclusters.rabbitmq.com|redis.opstreelabs.in)" | xargs kubectl delete
+kubectl get crd -o name | grep -E "(postgresql.cnpg.io|rabbitmqclusters.rabbitmq.com|redis.opstreelabs.in|cert-manager.io)" | xargs kubectl delete
 ```
 
 > **Note**: Deleting the CRDs will delete all data as well. Please be cautious before doing it.
-
-## GUI Installation
-If You want to install ezd-crd via GUI, please follow [this instruction](https://github.com/linuxpolska/ezd-rp/blob/main/INSTALL_VIA_GUI.md).

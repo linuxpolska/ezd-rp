@@ -1,0 +1,6 @@
+dependencies:
+- name: nask-ezdrp-ha
+  repository: https://git.eadministracja.nask.pl/api/packages/ezdrp/helm
+  version: 21.18.7
+digest: sha256:5fb908955d561628f1db7348e2f2e9ecd90c2fbdcefb7c6b845b3fadc1ca3e67
+generated: "2025-08-11T22:45:05.906926419+02:00"

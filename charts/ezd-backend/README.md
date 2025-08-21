@@ -1,7 +1,7 @@
 ## General
 
 > **Note:**
-> Chart ezd-backend was tested with chart version up to 21.15.13 (application version up to 1.2025.21.15).
+> Chart ezd-backend was tested with chart version up to 21.18.7 (application version up to 1.2025.21.18).
 
 ### Are you looking for more information?
 
@@ -55,7 +55,7 @@
 
 ```bash
 RELEASE_NAMESPACE=example
-CHART_VERSION=1.9.0
+CHART_VERSION=2.0.0
 
 cat <<EOF > /tmp/ezd-pass.sh
 # These passwords are necessary for ezdrp backend AND frontend deployments.
@@ -110,6 +110,3 @@ helm -n ${RELEASE_NAMESPACE} list
 ```bash
 helm -n ${RELEASE_NAMESPACE} uninstall ezd-backend-release
 ```
-
-## GUI Installation
-If You want to install ezd-backend via GUI, please follow [this instruction](https://github.com/linuxpolska/ezd-rp/blob/main/INSTALL_VIA_GUI.md).

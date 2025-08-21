@@ -17,41 +17,56 @@ global:
     deploy: true
   redis:
     deploy: true
+  certManager:
+    deploy: true
 
-rabbitmq-operator:
-  rke2rabbitmqope:
-    clusterOperator:
-      replicaCount: 1
-      image:
-        registry: ""
-        repository: docker.io/sourcemation/rabbitmq-cluster-operator
-        tag: 2.15.0
-        pullPolicy: Always
-      resources:
-        limits:
-          cpu: 200m
-          memory: 500Mi
-        requests:
-          cpu: 200m
-          memory: 500Mi
-      tolerations: []
-      affinity: {}
-
-    msgTopologyOperator:
+cert-manager-operator:
+  global:
+    certManagerApproverPolicyCrd:
       enabled: false
-
+  cert-manager:
+    global:
+      leaderElection:
+        namespace: "lp-system"
+    disableAutoApproval: false
+    namespace: ""
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 10m
+        memory: 128Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
 
 cnpg-operator:
   cloudnative-pg:
     image:
       repository: ghcr.io/cloudnative-pg/cloudnative-pg
-      tag: "1.26.0"
+      tag: "1.27.0"
       pullPolicy: Always
-    resources: {}
-    tolerations: []
-    affinity: {}
-    podSecurityContext: {}
-    fullnameOverride: "postgresql"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+
+rabbitmq-operator:
+  rke2rabbitmqope:
+    clusterOperator:
+      replicaCount: 1
+      pullPolicy: Always
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+    msgTopologyOperator:
+      enabled: false
 
 
 redis-operator:
@@ -64,10 +79,9 @@ redis-operator:
       serviceAccountName: "redis-operator"
       resources:
         limits:
-          cpu: 500m
+          cpu: 100m
           memory: 500Mi
         requests:
-          cpu: 500m
+          cpu: 100m
           memory: 500Mi
-      tolerations: []
-      affinity: {}
+

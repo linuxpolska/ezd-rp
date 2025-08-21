@@ -1,0 +1,670 @@
+global:
+  frontend:
+  # deploy frontend
+    deploy: true
+
+certManager:
+  enabled: true # enable cert-manager to manage TLS certs for ezd-frontend
+  letsencrypt:
+    enabled: false # enable letsencrypt CA
+    #server: https://acme-staging-v02.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: jon@example.com
+    solvers:
+    # Configure dns01 challange for Issuer
+    # Notice that secret must be created in advance
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+      
+  organizations:
+    - example-org
+
+####
+frontend:
+  environment: &environment Development
+
+  imageCredentials:
+    registryDomain: "git.eadministracja.nask.pl/ezdrp"
+
+  storage:
+    enabled: true
+    storageClass: &storageclass nfs-csi
+    force_chown: false
+
+  affinity:
+    nodeAffinitySelector:
+      name: ""
+      value: ""
+
+  domainInfo:
+    name: project.domain.pl
+    cert_name: certificate # do not change it if using cert-manager integration (`certManager.enabled=true`)
+    cert_info: true
+    snippets_enabled: true
+
+  network:
+    service:
+      type: &servicetype ClusterIP
+    ingressName: nginx-ingress  # name from labels : kubernetes.io/metadata.name : xxxx *(ingress classname)
+
+  #### Redis DB variables
+  redisExt:
+    password: 
+    host: 
+    port: 6379
+
+  #### rabbit DB variables
+  rabbitExt:
+    user: 
+    password: 
+    host: 
+    port: 5672
+
+  #Redis-APPEND SERVER
+  redisAppendExt:
+    password: 
+    host: 
+    port: 6379
+
+  #external idp :
+  externalIDP:
+    LDAP:
+      enabled: "false"
+      options: "false"
+      display_name: "Logowanie LDAP"
+    AD:
+      enabled: "false"
+      options: "false"
+      display_name: "Logowanie AD"
+    WK:
+      enabled: "false"
+      options: "false"
+      display_name: "Logowanie INT"
+
+  #waitfor module :
+  waitfor:
+    image:
+      name: wait_for
+      version: "01"
+      registry: git.eadministracja.nask.pl/ezdrp
+
+  volume_owner_hack:
+    image:
+      name: busybox
+      version: "1.36.1"
+      registry: git.eadministracja.nask.pl/ezdrp
+
+  #email credentials :
+  email:
+    host: localhost
+    port: 587
+    sendermail: test@mail.loc
+    sendername: test@mail.loc
+    password: qwerty123
+    from: "EZD RP"
+    timeout: "00:00:30"
+
+
+  #logs connections :
+  seq:
+    url: http://seq.seq.svc.cluster.local
+  loki:
+    url: http://loki.loki.svc.cluster.local:3100
+
+  ezd:
+    use_dtocache: true
+    minimum_log_level: Information
+    sso_minimum_log_level: Warning
+    logging_serilog_seq_logger: true
+    logging_serilog_console_logger: true
+    csp_ext: ""
+    
+
+  matomo:
+    url: ""
+    id: ""
+    tag_container_name: ""
+
+  #COMMON configurations for everyone using the cloudadmin module
+  #commonConfigs:
+
+  #job parameters
+  job:
+    relationalDB:
+      oracleconnector:
+        registry: git.eadministracja.nask.pl/ezdrp/connector
+        imageName: oracle_conn
+        imageTag: latest
+      universalconnector:
+        registry: git.eadministracja.nask.pl/ezdrp/connector
+        imageName: universal_conn
+        imageTag: latest
+    rabbit:
+      registry: git.eadministracja.nask.pl/ezdrp
+      imageName: rabbitmq
+      imageTag: 3.8.9-management
+
+  #anonimizator :
+  anonimizator:
+    image:
+      name: anonimizator
+      version: "21.18.2"
+    resources:
+      limits:
+        cpu: 4000m
+        memory: 8192Mi
+      requests:
+        cpu: 400m
+        memory: 2048Mi
+
+  #ezdrp-api :
+  ezdrpApi:
+    active: true
+    image:
+      name: ezdrp-api
+      version: "21.18.26"
+    moduleName: &ezdrpapireponame "ezdrp-api"
+    rabbitmq:
+      vhostarchiwum: arch
+      vhostezdrp: ezdrp
+    cloudadmin:
+      configname: ezdrpapi
+    params:
+      requestStatistic: "OFF"
+      longExecutionStatistic: "OFF"
+      Ezdrp_Feature_Ai_Klasyfikacja: Disabled
+      Ezdrp_Feature_Ai_Metadane: Disabled
+      Ezdrp_Feature_Ai_Streszczenia: Disabled
+      Ezdrp_Feature_Bpmn: Disabled
+      Ezdrp_Feature_Ewd: Disabled
+      Ezdrp_Feature_Muas: Disabled
+      Ezdrp_Feature_NoweZadania: Disabled
+      Ezdrp_Feature_Ocr: Disabled
+      Ezdrp_Feature_PieczecElektroniczna: Disabled
+      Ezdrp_Feature_CentrumStatystyk: Disabled
+      Ezdrp_Feature_PrzydzielanieDostepow: Enabled
+      Ezdrp_Feature_PaczkaMigracyjna: Disabled
+      Ezdrp_Feature_Wew: Disabled
+      Ezdrp_Feature_Interpelacje: Disabled
+      Ezdrp_Feature_TransakcyjnyEpuap: Disabled
+      Ezdrp_Feature_TransakcyjneEdoreczenia: Disabled
+      Ezdrp_Feature_NowyAnonimizator: Disabled
+      Ezdrp_Feature_Dlqm: Disabled
+      Ezdrp_Feature_EpuapWysylkaPlikowStrumieniowo: Disabled
+      Ezdrp_Feature_Develop: Disabled
+      Ezdrp_Feature_SaxonServerXslt: Disabled
+      Ezdrp_Feature_MailService: Disabled
+      statistics_config_Instance_InstallationId: ""
+      statistics_config_Instance_ApiKey: ""
+      statistics_config_Workers_TaskRequest_DefaultInterval: "24:00:00"
+      statistics_config_Workers_SendTaskResult_DefaultInterval: "24:00:00"
+      testVersionName: "Wersja Testowa"
+    port: &ezdrpapiport 5000
+    livenessDelay: 40
+    startupDelay: 30
+    redinessDelay: 10
+    resources:
+      limits:
+        cpu: 10000m
+        memory: 12Gi
+      requests:
+        cpu: 2000m
+        memory: 4Gi
+    persistence:
+      storageClass: *storageclass
+      size: 1 # size in Gi (gigabyte)
+      accessMode: ReadWriteOnce
+    service:
+      type: *servicetype
+
+  #ezdrp-web :
+  ezdrpWeb:
+    image:
+      name: ezdrp-web
+      version: "21.18.8"
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
+    params:
+      EZD_ACTION_TIMEOUT: "1000"
+      EZD_PDFSLICK: "false"
+
+  #filerepository :
+  filerepository:
+    active: true
+    body_max_size: 500m
+    image:
+      name: filerepository
+      version: "21.18.1"
+    moduleName: &filereponame "filerepo-api"
+    cloudadmin:
+      configname: filerepository
+    port: &filerepoport 5000
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 1500m
+        memory: 2048Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    bufferChunkSize: "1048576"
+    maxRequestSize: "2147483647"
+    redisTTL: 300
+    tokenName: "fr:tokens:"
+    persistence:
+      storageClass: *storageclass
+      size: 500 #size in Gi (gigabyte)
+      accessMode: ReadWriteOnce
+      mountPoint: "/data"
+      filerepoStorageType: "S1"
+      s3:
+        host: ""
+        port: ""
+        access_key: ""
+        secret_key: ""
+        tls: ""
+        bucketname: ""
+      ezdpuwmigration:
+        enabled: false
+        dataPath: "/EZD_PUW/data"
+        metaPath: "/EZD_PUW/meta"
+        storageClass: ""
+        size:
+        accessMode: ReadWriteOnce
+    service:
+      type: *servicetype
+
+  #kuip-api :
+  kuipApi:
+    active: true
+    image:
+      name: kuip-api
+      version: "21.18.1"
+    moduleName: &kuipapiname "kuip-api"
+    cloudadmin:
+      configname: kuipapi
+    port: &kuipapiport 5000
+    livenessDelay: 20
+    startupDelay: 5
+    redinessDelay: 5
+    resources:
+      limits:
+        cpu: 3000m
+        memory: 8192Mi
+      requests:
+        cpu: 500m
+        memory: 1024Mi
+    service:
+      type: *servicetype
+
+  #kuip-web :
+  kuipWeb:
+    active: true
+    image:
+      name: kuip-web
+      version: "21.18.1"
+    moduleName: kuip-web
+    port: &kuipwebport 8080
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
+    appProd: true
+    service:
+      type: *servicetype
+
+  #ocr-api :
+  ocrApi:
+    active: true
+    image:
+      name: ocr-api
+      version: "21.18.1"
+    moduleName: &ocrname ocr-api
+    cloudadmin:
+      configname: ocrapi
+    rabbitmq:
+      vhost: ezdrp
+    port: &ocrport 5000
+    redinessDelay: 10
+    livenessDelay: 50
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 2048Mi
+      requests:
+        cpu: 1000m
+        memory: 1024Mi
+    service:
+      type: *servicetype
+
+  #razor :
+  razor:
+    active: true
+    ingress: false
+    image:
+      name: razor
+      version: "21.5.4"
+    moduleName: &razorname "razor"
+    port: &razorport 5000
+    redinessDelay: 10
+    livenessDelay: 60
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 4096Mi
+      requests:
+        cpu: 500m
+        memory: 4096Mi
+    service:
+      type: *servicetype
+
+  #sso-apigateway :
+  ssoApigateway:
+    active: true
+    adminActive: false #chwilowe - do testow - wywalic takze ingress-admin po przejsciu na prod !
+    image:
+      name: sso-api-gateway
+      version: "21.18.1"
+    moduleName: sso-apigateway
+    cloudadmin:
+      configname: ssoapigateway
+    port: &ssoapigw 8000
+    portAdmin: 8001
+    portCache: 10000
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 6000m
+        memory: 8Gi
+      requests:
+        cpu: 1000m
+        memory: 3Gi
+    kongAdminListen: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+    kongStatusListen: "0.0.0.0:8100"
+    kongTrustedIPS: "0.0.0.0/0,::/0"
+    kongHeaders: "off"
+    service:
+      type: *servicetype
+
+  #sso-externalproviders :
+  ssoExternalProviders:
+    active: true
+    image:
+      name: sso-customexternalprovider
+      version: "21.18.1"
+    moduleName: sso-customexternalproviders
+    cloudadmin:
+      configname: ssocep
+    port: &ssoextproviderport 5000
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    service:
+      type: *servicetype
+
+  #sso-identityserver :
+  ssoIdentityServer:
+    active: true
+    image:
+      name: sso-identityserver
+      version: "21.18.1"
+    moduleName: &ssoidpname sso-identityserver
+    cloudadmin:
+      configname: sso
+    port: &ssoidpport 5000
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 256Mi
+    environment: *environment
+    forwardHeaders: true
+    forceSetHttps: true
+    persistence:
+      storageClass: *storageclass
+      size: 1
+      accessMode: ReadWriteOnce
+    service:
+      type: *servicetype
+
+  #wpe-rest:
+  wpeRest:
+    active: true
+    image:
+      name: wpe-rest
+      version: "21.18.5"
+    moduleName: &wperestname "wpe-rest"
+    port: &wperestport 8080
+    redinessDelay: 50
+    livenessDelay: 120
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 8192Mi
+      requests:
+        cpu: 200m
+        memory: 1024Mi
+    persistence:
+      storageClass: *storageclass
+      size: 2 #size in Gi (gigabyte)
+      accessMode: ReadWriteOnce
+    service:
+      type: *servicetype
+
+  #wpe-web :
+  wpeWeb:
+    active: false
+    image:
+      name: wpe-web
+      version: "<WPE-WEB-VERSION>"
+    moduleName: wpe-web
+    port: &wpeport 8080
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
+    service:
+      type: *servicetype
+
+  #btm :
+  btm:
+    image:
+      name: btm
+      version: "21.18.1"
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2048Mi
+      requests:
+        cpu: 500m
+        memory: 1024Mi
+
+  #integrator-api :
+  integratorApi:
+    image:
+      name: integrator-api
+      version: "21.18.27"
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 2Gi
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+
+  #job-trigger :
+  jobTrigger:
+    image:
+      name: jobtrigger
+      version: "21.18.26"
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 2Gi
+      requests:
+        cpu: 500m
+        memory: 1Gi
+
+  # variables for cloudadmin :
+  cloudadmin:
+    image:
+      name: cloudadmin
+      version: "21.18.3"
+    transactionTimeout: 30
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    relationaldb:
+      connectiontype:
+        ezdrp: 
+        archiwum: 
+        kuip: 
+        ezdrpodczyt: 
+        wpe: 
+        teryt: 
+      connectionstring:
+        ezdrp: 
+        archiwum: 
+        kuip: 
+        ezdrpodczyt: 
+        wpe: 
+        teryt: 
+    rabbit:
+      confirms: true
+    redis:
+      serviceName: ""
+    redisAppend:
+      serviceName: ""
+    archiwum:
+      host: *ezdrpapireponame
+      port: *ezdrpapiport
+    quickscan:
+      url: https://pliki.ezdrp.eadministracja.nask.pl/quickscan/version.xml
+    ldapbinddnscheme: ""
+    externalprovider1:
+      enabled: false
+      scheme: "symulator"
+      schemeDisplayName: "Logowanie symulator"
+      handlerType: "Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectHandler, Microsoft.AspNetCore.Authentication.OpenIdConnect"
+      options: false
+    tracing:
+      strategy: "AlwaysOff"
+      endpoint: "http://tempo.loki.svc.cluster.local:4318/v1/traces" 
+    muas:
+      host: "muas-api"
+      port: 5000
+    sealweb:
+      url: "http://seal-web:5000/"
+    sentry:
+      url: "EZD_SENTRY_URL"
+    newlogin:
+      ezdrp_web: "off"
+      kuip_web: "off"
+    
+  #teryt :
+  teryt:
+    active: true
+    image:
+      name: teryt
+      version: "21.18.1"
+    cloudadmin:
+      configname: teryt
+    moduleName: teryt
+    port: &terytport 5000
+    redinessDelay: 10
+    livenessDelay: 30
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 4096Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    service:
+      type: *servicetype
+
+  #forms-web :
+  formsWeb:
+    image:
+      name: forms-web
+      version: "21.18.1"
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
+
+  #mail :
+  mail:
+    active: true
+    image:
+      name: mail
+      version: "21.18.1"
+    cloudadmin:
+      configname: mail
+    moduleName: mail
+    port: 5000
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    service:
+      type: *servicetype
+    params:
+      CRYPTO_KEY: "2df32eb2c31342978d1308bc8999d787"
+      CRYPTO_VECTOR: "8e6d99c690012677"
+
+  #procesowosc :
+  procesowosc:
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
+
+  #routing :
+  gateway:
+    type: "ingress"
+    redirect: false
+
