@@ -9,7 +9,7 @@ metadata:
 spec:
   acme:
     email: {{ .Values.certManager.letsencrypt.email }}
-    server: {{ .Values.certManager.server }}
+    server: {{ .Values.certManager.letsencrypt.server }}
     privateKeySecretRef:
       name: {{ .Release.Name }}-issuer-account-key
     # Add a single challenge solver, HTTP01 using nginx
