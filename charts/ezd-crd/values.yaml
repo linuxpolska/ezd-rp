@@ -43,7 +43,7 @@ cnpg-operator:
   cloudnative-pg:
     image:
       repository: ghcr.io/cloudnative-pg/cloudnative-pg
-      tag: "1.27.0"
+      tag: "1.27.1"
       pullPolicy: Always
     resources:
       limits:
@@ -74,7 +74,7 @@ redis-operator:
     replicas: 1
     redisOperator:
       imageName: docker.io/sourcemation/redis-operator
-      imageTag: 0.21.0
+      imageTag: 0.22.1
       pullPolicy: Always
       serviceAccountName: "redis-operator"
       resources:

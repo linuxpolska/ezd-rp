@@ -63,7 +63,7 @@
 
 ```bash
 RELEASE_NAMESPACE=ezd-frontend
-CHART_VERSION=2.0.0
+CHART_VERSION=2.1.0
 
 # Set the name of the domain where ezdrp will exist
 APP_DOMAIN=example.domain.name

@@ -14,21 +14,29 @@ Our package contains complete set of necessary backend and frontend services for
     - [Frontend](charts/ezd-backend/README.md)
 - [Troubleshooting](TROUBLESHOOTING.md)
 
+## LP-EZD repo
+
+Helm repository is hosted [here](https://linuxpolska.github.io/ezd-rp). You may add it to your local helm repo list by the following:
+
+```
+helm repo add lp-ezd https://linuxpolska.github.io/ezd-rp
+```
 
 ## Releases
-| Release / Chart Version | Release Notes                                                   |  Tested with NASK Ezdrp application                                |
-|-------------------------|-----------------------------------------------------------------|--------------------------------------------------------------------|
-| **1.0.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.0.0) | Chart up to 1.15.84 and Application version up to 1.2023-15        |
-| **1.1.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.1.1) | Chart up to 1.15.84 and Application version up to 1.2023-15        |
-| **1.2.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.2.1) | Chart up to 1.15.84 and Application version up to 1.2023-15        |
-| **1.3.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.3.1) | Chart up to 19.4.15 and Application version up to 1.2024-19.4      |
-| **1.4.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.4.1) | Chart up to 19.7.15 and Application version up to 1.2024-19.7      |
-| **1.5.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.5.1) | Chart up to 19.7.45 and Application version up to 1.2024-19.7.45   |
-| **1.6.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.6.0) | Chart up to 21.7.29 and Application version up to 1.2025.21.7      |
-| **1.7.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.7.0) | Chart up to 21.7.29 and Application version up to 1.2025.21.7      |
-| **1.8.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.8.0) | Chart up to 21.11.11 and Application version up to 1.2025.21.11    |
-| **1.9.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.9.0) | Chart up to 21.15.13 and Application version up to 1.2025.21.15    |
-| **2.0.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/2.0.0) | Chart up to 21.18.7 and Application version up to 1.2025.21.18     |
+| Release / Chart Version | Release Notes                                                   |  Tested with NASK Ezdrp application                               |
+|-------------------------|-----------------------------------------------------------------|-------------------------------------------------------------------|
+| **1.0.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.0.0) | Chart up to  1.15.84 and Application version up to 1.2023-15      |
+| **1.1.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.1.1) | Chart up to  1.15.84 and Application version up to 1.2023-15      |
+| **1.2.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.2.1) | Chart up to  1.15.84 and Application version up to 1.2023-15      |
+| **1.3.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.3.1) | Chart up to  19.4.15 and Application version up to 1.2024-19.4    |
+| **1.4.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.4.1) | Chart up to  19.7.15 and Application version up to 1.2024-19.7    |
+| **1.5.1**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.5.1) | Chart up to  19.7.45 and Application version up to 1.2024-19.7.45 |
+| **1.6.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.6.0) | Chart up to  21.7.29 and Application version up to 1.2025.21.7    |
+| **1.7.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.7.0) | Chart up to  21.7.29 and Application version up to 1.2025.21.7    |
+| **1.8.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.8.0) | Chart up to 21.11.11 and Application version up to 1.2025.21.11   |
+| **1.9.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/1.9.0) | Chart up to 21.15.13 and Application version up to 1.2025.21.15   |
+| **2.0.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/2.0.0) | Chart up to  21.18.7 and Application version up to 1.2025.21.18   |
+| **2.1.0**               | [🔗] (https://github.com/linuxpolska/ezd-rp/releases/tag/2.1.0) | Chart up to  21.22.8 and Application version up to 1.2025.21.22   |
 
 ## Contact
 

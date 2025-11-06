@@ -1,15 +1,15 @@
 dependencies:
 - name: rabbitmq-operator
   repository: https://charts.sourcemation.com/
-  version: 0.1.14
+  version: 0.1.18
 - name: cnpg-operator
   repository: https://charts.sourcemation.com/
   version: 0.5.0
 - name: redis-operator
   repository: https://charts.sourcemation.com/
-  version: 0.3.0
+  version: 0.4.0
 - name: cert-manager-operator
   repository: https://charts.sourcemation.com/
   version: 1.1.0
-digest: sha256:d0ce798dfe195f14fcc221f4fc0f9271923cd07d3abe7a3ed707eee0d17afc24
-generated: "2025-08-18T15:15:43.37421527+02:00"
+digest: sha256:8816ac1619b72bf8532cfde9cda6ab76d5f52063190962bfec50846da16d2796
+generated: "2025-10-13T15:42:30.197318631+02:00"

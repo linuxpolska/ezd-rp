@@ -1,7 +1,7 @@
 ## General
 
 > **Note:**
-> Chart ezd-crd was tested with chart version up to 21.18.7 (application version up to 1.2025.21.18).
+> Chart ezd-crd was tested with chart version up to 21.22.8 (application version up to 1.2025.21.22).
 
 ### Are you looking for more information?
 
@@ -58,7 +58,7 @@ Release name and namespace must match for CRD upgrade. To work around the error 
 
 ```bash
 RELEASE_NAMESPACE=lp-system
-CHART_VERSION=2.0.0
+CHART_VERSION=2.1.0
 ```
 
 ### Go go helm
@@ -83,7 +83,7 @@ cnpg-operator:
   cloudnative-pg:
     image:
       repository: ghcr.io/cloudnative-pg/cloudnative-pg
-      tag: "1.27.0"
+      tag: "1.27.1"
       pullPolicy: Always
 
 rabbitmq-operator:

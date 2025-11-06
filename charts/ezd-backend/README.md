@@ -1,7 +1,7 @@
 ## General
 
 > **Note:**
-> Chart ezd-backend was tested with chart version up to 21.18.7 (application version up to 1.2025.21.18).
+> Chart ezd-backend was tested with chart version up to 21.22.8 (application version up to 1.2025.21.22).
 
 ### Are you looking for more information?
 
@@ -55,7 +55,7 @@
 
 ```bash
 RELEASE_NAMESPACE=example
-CHART_VERSION=2.0.0
+CHART_VERSION=2.1.0
 
 cat <<EOF > /tmp/ezd-pass.sh
 # These passwords are necessary for ezdrp backend AND frontend deployments.

@@ -2,13 +2,13 @@ annotations:
   catalog.cattle.io/display-name: EZD RP Frontend (3/3) - Operators
   catalog.cattle.io/os: linux
 apiVersion: v2
-appVersion: 1.2025.21.18
+appVersion: 1.2025.21.22
 dependencies:
 - condition: global.frontend.deploy
   name: nask-ezdrp-ha  
   alias: frontend
   repository: https://git.eadministracja.nask.pl/api/packages/ezdrp/helm
-  version: 21.18.7
+  version: 21.22.8
 description: Frontend for EZD RP app.  EZD RP / LP Frontend
 home: https://linuxpolska.com
 icon: https://linuxpolska.com/logo/LinuxPolska-icon.png
@@ -26,4 +26,4 @@ name: ezd-frontend
 sources:
 - https://github.com/linuxpolska/ezd-rp.git
 type: application
-version: 2.0.0
+version: 2.1.0

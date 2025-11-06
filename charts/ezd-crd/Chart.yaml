@@ -4,12 +4,12 @@ annotations:
   catalog.cattle.io/os: linux
   catalog.cattle.io/release-name: ezd-crd
 apiVersion: v2
-appVersion: 1.2025.21.18
+appVersion: 1.2025.21.22
 dependencies:
 - condition: global.rabbitmq.deploy
   name: rabbitmq-operator  
   repository: https://charts.sourcemation.com/
-  version: 0.1.14
+  version: 0.1.18
 - condition: global.postgresql.deploy
   name: cnpg-operator
   repository: https://charts.sourcemation.com/
@@ -17,7 +17,7 @@ dependencies:
 - condition: global.redis.deploy
   name: redis-operator
   repository: https://charts.sourcemation.com/
-  version: 0.3.0
+  version: 0.4.0
 - condition: global.certManager.deploy
   name: cert-manager-operator
   repository: https://charts.sourcemation.com/
@@ -44,4 +44,4 @@ name: ezd-crd
 sources:
 - https://github.com/linuxpolska/ezd-rp.git
 type: application
-version: 2.0.0
+version: 2.1.0

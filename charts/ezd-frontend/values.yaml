@@ -41,8 +41,8 @@ frontend:
 
   domainInfo:
     name: project.domain.pl
-    cert_name: certificate # do not change it if using cert-manager integration (`certManager.enabled=true`)
-    cert_info: true
+    cert_name: certificate
+    cert_info: true # false
     snippets_enabled: true
 
   network:
@@ -111,8 +111,6 @@ frontend:
   #logs connections :
   seq:
     url: http://seq.seq.svc.cluster.local
-  loki:
-    url: http://loki.loki.svc.cluster.local:3100
 
   ezd:
     use_dtocache: true
@@ -134,10 +132,6 @@ frontend:
   #job parameters
   job:
     relationalDB:
-      oracleconnector:
-        registry: git.eadministracja.nask.pl/ezdrp/connector
-        imageName: oracle_conn
-        imageTag: latest
       universalconnector:
         registry: git.eadministracja.nask.pl/ezdrp/connector
         imageName: universal_conn
@@ -145,13 +139,13 @@ frontend:
     rabbit:
       registry: git.eadministracja.nask.pl/ezdrp
       imageName: rabbitmq
-      imageTag: 3.8.9-management
+      imageTag: 3-management
 
   #anonimizator :
   anonimizator:
     image:
       name: anonimizator
-      version: "21.18.2"
+      version: "21.22.3"
     resources:
       limits:
         cpu: 4000m
@@ -159,13 +153,17 @@ frontend:
       requests:
         cpu: 400m
         memory: 2048Mi
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #ezdrp-api :
   ezdrpApi:
     active: true
     image:
       name: ezdrp-api
-      version: "21.18.26"
+      version: "21.22.10"
     moduleName: &ezdrpapireponame "ezdrp-api"
     rabbitmq:
       vhostarchiwum: arch
@@ -196,7 +194,8 @@ frontend:
       Ezdrp_Feature_EpuapWysylkaPlikowStrumieniowo: Disabled
       Ezdrp_Feature_Develop: Disabled
       Ezdrp_Feature_SaxonServerXslt: Disabled
-      Ezdrp_Feature_MailService: Disabled
+      Ezdrp_Feature_MailService: Enabled
+      Ezdrp_Feature_MailServiceConfiguration: Disabled
       statistics_config_Instance_InstallationId: ""
       statistics_config_Instance_ApiKey: ""
       statistics_config_Workers_TaskRequest_DefaultInterval: "24:00:00"
@@ -219,12 +218,16 @@ frontend:
       accessMode: ReadWriteOnce
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #ezdrp-web :
   ezdrpWeb:
     image:
       name: ezdrp-web
-      version: "21.18.8"
+      version: "21.22.4"
     resources:
       limits:
         cpu: 300m
@@ -235,6 +238,11 @@ frontend:
     params:
       EZD_ACTION_TIMEOUT: "1000"
       EZD_PDFSLICK: "false"
+      EZD_SIGNALR_ENABLED: "false"
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #filerepository :
   filerepository:
@@ -242,7 +250,7 @@ frontend:
     body_max_size: 500m
     image:
       name: filerepository
-      version: "21.18.1"
+      version: "21.22.1"
     moduleName: &filereponame "filerepo-api"
     cloudadmin:
       configname: filerepository
@@ -282,13 +290,17 @@ frontend:
         accessMode: ReadWriteOnce
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #kuip-api :
   kuipApi:
     active: true
     image:
       name: kuip-api
-      version: "21.18.1"
+      version: "21.22.1"
     moduleName: &kuipapiname "kuip-api"
     cloudadmin:
       configname: kuipapi
@@ -305,13 +317,24 @@ frontend:
         memory: 1024Mi
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
+
+  #kuip-scim :
+  kuipScim:
+    active: true
+    image:
+      name: kuip-scim
+      version: "21.22.1"
 
   #kuip-web :
   kuipWeb:
     active: true
     image:
       name: kuip-web
-      version: "21.18.1"
+      version: "21.22.2"
     moduleName: kuip-web
     port: &kuipwebport 8080
     redinessDelay: 10
@@ -326,13 +349,17 @@ frontend:
     appProd: true
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #ocr-api :
   ocrApi:
     active: true
     image:
       name: ocr-api
-      version: "21.18.1"
+      version: "21.22.1"
     moduleName: &ocrname ocr-api
     cloudadmin:
       configname: ocrapi
@@ -350,6 +377,10 @@ frontend:
         memory: 1024Mi
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #razor :
   razor:
@@ -357,7 +388,7 @@ frontend:
     ingress: false
     image:
       name: razor
-      version: "21.5.4"
+      version: "21.5.5"
     moduleName: &razorname "razor"
     port: &razorport 5000
     redinessDelay: 10
@@ -371,6 +402,10 @@ frontend:
         memory: 4096Mi
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #sso-apigateway :
   ssoApigateway:
@@ -378,7 +413,7 @@ frontend:
     adminActive: false #chwilowe - do testow - wywalic takze ingress-admin po przejsciu na prod !
     image:
       name: sso-api-gateway
-      version: "21.18.1"
+      version: "21.22.1"
     moduleName: sso-apigateway
     cloudadmin:
       configname: ssoapigateway
@@ -400,13 +435,17 @@ frontend:
     kongHeaders: "off"
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #sso-externalproviders :
   ssoExternalProviders:
     active: true
     image:
       name: sso-customexternalprovider
-      version: "21.18.1"
+      version: "21.22.1"
     moduleName: sso-customexternalproviders
     cloudadmin:
       configname: ssocep
@@ -422,13 +461,17 @@ frontend:
         memory: 128Mi
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #sso-identityserver :
   ssoIdentityServer:
     active: true
     image:
       name: sso-identityserver
-      version: "21.18.1"
+      version: "21.22.1"
     moduleName: &ssoidpname sso-identityserver
     cloudadmin:
       configname: sso
@@ -451,13 +494,17 @@ frontend:
       accessMode: ReadWriteOnce
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #wpe-rest:
   wpeRest:
     active: true
     image:
       name: wpe-rest
-      version: "21.18.5"
+      version: "21.22.3"
     moduleName: &wperestname "wpe-rest"
     port: &wperestport 8080
     redinessDelay: 50
@@ -475,6 +522,10 @@ frontend:
       accessMode: ReadWriteOnce
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #wpe-web :
   wpeWeb:
@@ -495,12 +546,16 @@ frontend:
         memory: 128Mi
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #btm :
   btm:
     image:
       name: btm
-      version: "21.18.1"
+      version: "21.22.1"
     resources:
       limits:
         cpu: 1000m
@@ -508,12 +563,16 @@ frontend:
       requests:
         cpu: 500m
         memory: 1024Mi
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #integrator-api :
   integratorApi:
     image:
       name: integrator-api
-      version: "21.18.27"
+      version: "21.22.10"
     resources:
       limits:
         cpu: 2000m
@@ -521,12 +580,16 @@ frontend:
       requests:
         cpu: 1000m
         memory: 1Gi
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #job-trigger :
   jobTrigger:
     image:
       name: jobtrigger
-      version: "21.18.26"
+      version: "21.22.10"
     resources:
       limits:
         cpu: 1000m
@@ -534,12 +597,16 @@ frontend:
       requests:
         cpu: 500m
         memory: 1Gi
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   # variables for cloudadmin :
   cloudadmin:
     image:
       name: cloudadmin
-      version: "21.18.3"
+      version: "21.22.1"
     transactionTimeout: 30
     resources:
       limits:
@@ -563,12 +630,12 @@ frontend:
         ezdrpodczyt: 
         wpe: 
         teryt: 
-    rabbit:
-      confirms: true
-    redis:
-      serviceName: ""
-    redisAppend:
-      serviceName: ""
+   # rabbit:
+   #   confirms: true
+   # redis:
+   #   serviceName: ""
+   # redisAppend:
+   #   serviceName: ""
     archiwum:
       host: *ezdrpapireponame
       port: *ezdrpapiport
@@ -594,13 +661,17 @@ frontend:
     newlogin:
       ezdrp_web: "off"
       kuip_web: "off"
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
     
   #teryt :
   teryt:
     active: true
     image:
       name: teryt
-      version: "21.18.1"
+      version: "21.22.1"
     cloudadmin:
       configname: teryt
     moduleName: teryt
@@ -616,12 +687,16 @@ frontend:
         memory: 512Mi
     service:
       type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #forms-web :
   formsWeb:
     image:
       name: forms-web
-      version: "21.18.1"
+      version: "21.22.1"
     resources:
       limits:
         cpu: 300m
@@ -629,13 +704,17 @@ frontend:
       requests:
         cpu: 200m
         memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #mail :
   mail:
     active: true
     image:
       name: mail
-      version: "21.18.1"
+      version: "21.22.1"
     cloudadmin:
       configname: mail
     moduleName: mail
@@ -652,19 +731,95 @@ frontend:
     params:
       CRYPTO_KEY: "2df32eb2c31342978d1308bc8999d787"
       CRYPTO_VECTOR: "8e6d99c690012677"
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
-  #procesowosc :
-  procesowosc:
+  #signalr :
+  signalr:
+    image:
+      name: signalr
+      version: "21.22.1"
+    cloudadmin:
+      configname: signalr
+    moduleName: signalr
+    port: 5000
     resources:
       limits:
-        cpu: 300m
-        memory: 256Mi
+        cpu: 500m
+        memory: 512Mi
       requests:
         cpu: 200m
         memory: 128Mi
+    service:
+      type: *servicetype
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
+
+  registry:
+    url: ""
+    username: ""
+    password: ""
+
+  #zitadel-proxy:
+  zitadelProxy:
+    active: true
+    image:
+      name: zitadel-proxy
+      version: "21.22.1"
+
+  #zitadel :
+  zitadel:
+    enabled: false
+    image:
+      name: zitadel
+      version: latest
+    private_key: private_key
+    database:
+      postgres:
+        enabled: false
+        host: zitadel-postgresql
+        password: zitadel
+        port: '5432'
+        username: zitadel
+        dbname: zitadel
+
+  bpmn:
+    enabled: false
+    camunda:
+      database:
+          driver: org.postgresql.Driver
+          host: "ezdrp-postgresql"
+          databaseName: "camunda"
+          username: "postgres"
+          password: "postgres"
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 250Mi
+      webCredentials:
+          username: "demo"
+          password: "demo"
+    validator:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 200m
+          memory: 128Mi
+    nodeSelector: {}
+    tolerations: []
+    nodeAffinity: {}
+    podAntiAffinity: {}
 
   #routing :
   gateway:
     type: "ingress"
     redirect: false
-
